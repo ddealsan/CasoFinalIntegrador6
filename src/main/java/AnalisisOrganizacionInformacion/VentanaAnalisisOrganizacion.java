@@ -66,7 +66,8 @@ public class VentanaAnalisisOrganizacion extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 int filaSeleccionada = tablaVentas.getSelectedRow();
                 if (filaSeleccionada >= 0) {
-                    analisisRegistros.getVentas().remove(filaSeleccionada);
+                    Venta ventaSeleccionada = (Venta) tablaVentas.getValueAt(filaSeleccionada, 0);
+                    analisisRegistros.getVentas().remove(ventaSeleccionada);
                     actualizarTabla();
                 }
             }
@@ -80,10 +81,11 @@ public class VentanaAnalisisOrganizacion extends JFrame {
     }
 
     private void actualizarTabla() {
-        DefaultTableModel model = new DefaultTableModel(new Object[]{"Producto", "Cantidad", "Precio"}, 0);
+        DefaultTableModel model = new DefaultTableModel(new Object[]{"Venta", "Producto", "Cantidad", "Precio"}, 0);
         for (Venta venta : analisisRegistros.getVentas()) {
-            model.addRow(new Object[]{venta.getProducto(), venta.getCantidad(), venta.getPrecio()});
+            model.addRow(new Object[]{venta, venta.getProducto(), venta.getCantidad(), venta.getPrecio()});
         }
         tablaVentas.setModel(model);
+        tablaVentas.removeColumn(tablaVentas.getColumnModel().getColumn(0)); // Ocultar la columna "Venta"
     }
 }
