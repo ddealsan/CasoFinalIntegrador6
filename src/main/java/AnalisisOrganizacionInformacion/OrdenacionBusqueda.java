@@ -1,16 +1,24 @@
 package AnalisisOrganizacionInformacion;
 
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
+import java.util.*;
 
 public class OrdenacionBusqueda {
-
-    public static void ordenarNombres(List<String> nombres) {
-        Collections.sort(nombres);
+    public List<Venta> ordenarPorProducto(List<Venta> ventas) {
+        ventas.sort(Comparator.comparing(Venta::getProducto));
+        return ventas;
     }
 
-    public static void ordenarVentas(List<Venta> ventas, Comparator<Venta> comparator) {
-        ventas.sort(comparator);
+    public List<Venta> ordenarPorCantidad(List<Venta> ventas) {
+        ventas.sort(Comparator.comparing(Venta::getCantidad));
+        return ventas;
+    }
+
+    public Venta buscarVenta(List<Venta> ventas, String producto) {
+        for (Venta venta : ventas) {
+            if (venta.getProducto().equals(producto)) {
+                return venta;
+            }
+        }
+        return null;
     }
 }
