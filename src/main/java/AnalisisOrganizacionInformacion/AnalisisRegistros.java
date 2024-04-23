@@ -1,13 +1,30 @@
 package AnalisisOrganizacionInformacion;
 
-import java.util.List;
-import java.util.stream.Collectors;
+import java.util.*;
 
 public class AnalisisRegistros {
+    private OrdenacionBusqueda ordenacionBusqueda;
+    private List<Venta> ventas;
 
-    public static List<Venta> filtrarVentas(List<Venta> ventas, String producto) {
-        return ventas.stream()
-                .filter(venta -> venta.getProducto().equals(producto))
-                .collect(Collectors.toList());
+    public AnalisisRegistros(List<Venta> ventas) {
+        this.ventas = ventas;
+        this.ordenacionBusqueda = new OrdenacionBusqueda();
+    }
+
+    public void ordenarVentasPorProducto() {
+        ventas = ordenacionBusqueda.ordenarPorProducto(ventas);
+    }
+
+    public void ordenarVentasPorCantidad() {
+        ventas = ordenacionBusqueda.ordenarPorCantidad(ventas);
+    }
+
+    public Venta buscarVenta(String producto) {
+        return ordenacionBusqueda.buscarVenta(ventas, producto);
+    }
+
+    // Método para obtener las ventas
+    public List<Venta> getVentas() {
+        return ventas;
     }
 }
