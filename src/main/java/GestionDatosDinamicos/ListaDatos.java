@@ -1,3 +1,4 @@
+// En ListaDatos.java
 package GestionDatosDinamicos;
 
 import java.util.ArrayList;
@@ -17,7 +18,14 @@ public class ListaDatos {
     }
 
     public void eliminarDato(Pareja dato) {
-        this.datos.remove(dato);
+        this.datos.removeIf(pareja -> pareja.getPrimero() == dato.getPrimero() && pareja.getSegundo() == dato.getSegundo());
+    }
+
+    public void modificarDato(Pareja datoAntiguo, Pareja datoNuevo) {
+        int index = datos.indexOf(datoAntiguo);
+        if (index != -1) {
+            datos.set(index, datoNuevo);
+        }
     }
 
     public List<Pareja> getDatos() {
