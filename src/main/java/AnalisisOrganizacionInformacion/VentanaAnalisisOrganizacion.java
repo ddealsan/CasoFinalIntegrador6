@@ -21,6 +21,7 @@ public class VentanaAnalisisOrganizacion extends JFrame {
 
         // Crear la tabla de ventas
         tablaVentas = new JTable();
+        tablaVentas.setSelectionMode(ListSelectionModel.SINGLE_SELECTION); // Permitir la selección de filas
         JScrollPane scrollPane = new JScrollPane(tablaVentas);
         add(scrollPane, BorderLayout.CENTER);
 
