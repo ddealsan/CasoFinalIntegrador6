@@ -1,6 +1,8 @@
 package GestionDatosDinamicos;
 
-public class Pareja {
+import java.io.Serializable;
+
+public class Pareja implements Serializable {
     private int primero;
     private int segundo;
 
