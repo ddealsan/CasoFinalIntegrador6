@@ -1,12 +1,10 @@
-// En ListaDatos.java
 package GestionDatosDinamicos;
 
+import java.io.*;
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
-import java.util.stream.Collectors;
 
-public class ListaDatos {
+public class ListaDatos implements Serializable {
     private List<Pareja> datos;
 
     public ListaDatos() {
@@ -32,19 +30,19 @@ public class ListaDatos {
         return datos;
     }
 
-    public List<Pareja> filtrarPorPrimero(int valor) {
-        return datos.stream()
-                .filter(pareja -> pareja.getPrimero() == valor)
-                .collect(Collectors.toList());
+    public void guardarDatos() {
+        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("datos.ser"))) {
+            oos.writeObject(datos);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
-    public List<Pareja> filtrarPorSegundo(int valor) {
-        return datos.stream()
-                .filter(pareja -> pareja.getSegundo() == valor)
-                .collect(Collectors.toList());
-    }
-
-    public void ordenarPorPrimero() {
-        datos.sort(Comparator.comparing(Pareja::getPrimero));
+    public void cargarDatos() {
+        try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream("datos.ser"))) {
+            datos = (List<Pareja>) ois.readObject();
+        } catch (IOException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
     }
 }
