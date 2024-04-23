@@ -2,16 +2,25 @@ package AnalisisOrganizacionInformacion;
 
 public class Venta {
     private String producto;
-    // Otros campos como cliente, cantidad, etc.
+    private int cantidad;
+    private double precio;
 
-    public Venta(String producto) {
+    // Constructor, getters y setters
+    public Venta(String producto, int cantidad, double precio) {
         this.producto = producto;
-        // Inicializar otros campos
+        this.cantidad = cantidad;
+        this.precio = precio;
     }
 
     public String getProducto() {
         return producto;
     }
 
-    // Otros getters y setters según sea necesario
+    public int getCantidad() {
+        return cantidad;
+    }
+
+    public double getPrecio() {
+        return precio;
+    }
 }
