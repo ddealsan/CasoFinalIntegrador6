@@ -1,10 +1,13 @@
-// En Ventana.java
 package GestionDatosDinamicos;
+
+import org.example.Bienvenida;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 public class Ventana extends JFrame {
     private ListaDatos listaDatos;
@@ -12,6 +15,7 @@ public class Ventana extends JFrame {
 
     public Ventana() {
         listaDatos = new ListaDatos();
+        listaDatos.cargarDatos(); // Cargar los datos al iniciar la ventana
 
         setTitle("Gestión de Datos Dinámicos");
         setSize(500, 500);
@@ -48,11 +52,26 @@ public class Ventana extends JFrame {
             }
         });
 
+        JButton buttonSalir = new JButton("Salir");
+        buttonSalir.addActionListener(e -> {
+            listaDatos.guardarDatos(); // Guardar los datos al presionar el botón de salida
+            dispose();
+            new Bienvenida().setVisible(true); // Abrir la ventana principal
+        });
+        panel.add(buttonSalir);
+
         panel.add(textFieldPrimero);
         panel.add(textFieldSegundo);
         panel.add(buttonAgregar);
         panel.add(buttonEliminar);
         add(panel, BorderLayout.SOUTH);
+
+        addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                listaDatos.guardarDatos(); // Guardar los datos al cerrar la ventana
+            }
+        });
     }
 
     private void actualizarListaParejas() {
